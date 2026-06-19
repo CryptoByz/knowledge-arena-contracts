@@ -1,6 +1,6 @@
 {
-  "network": "arcTestnet",
-  "chainId": "5042002",
+  "network": "celo",
+  "chainId": "42220",
   "badgeNFT": "0xcAF20a164E00f614c74520D36a7F78E0c6de8365",
   "playerProfile": "0xe9ae25F42Fc221E6C0d51c43300179F41713e4c1",
   "achievementManager": "0x48CdE43521573037d597bfc250Fbc2B24192fb4b",
