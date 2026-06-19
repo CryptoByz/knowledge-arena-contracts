@@ -27,6 +27,11 @@ const config: HardhatUserConfig = {
       url: process.env.BASE_SEPOLIA_RPC_URL || "https://sepolia.base.org",
       accounts: [PRIVATE_KEY],
       chainId: 84532,
+    },
+    celo: {
+      url: process.env.CELO_RPC_URL || "https://forno.celo.org",
+      accounts: [PRIVATE_KEY],
+      chainId: 42220,
     }
   }
 };
