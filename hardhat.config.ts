@@ -18,6 +18,11 @@ const config: HardhatUserConfig = {
       accounts: [PRIVATE_KEY],
       chainId: 5042002,
     },
+    baseMainnet: {
+     url: process.env.BASE_MAINNET_RPC_URL || "https://mainnet.base.org",
+     accounts: [PRIVATE_KEY],
+     chainId: 8453,
+    },
     baseSepolia: {
       url: process.env.BASE_SEPOLIA_RPC_URL || "https://sepolia.base.org",
       accounts: [PRIVATE_KEY],

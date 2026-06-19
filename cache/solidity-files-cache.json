@@ -42,8 +42,8 @@
       ]
     },
     "/home/rpi5/knowledge-arena/contracts/PlayerProfile.sol": {
-      "lastModificationDate": 1781080070773,
-      "contentHash": "04b4c55bfcf9a1a8584ba2c657bedc9b",
+      "lastModificationDate": 1781879084216,
+      "contentHash": "06367bce5b16172a467ede0e2beb4ebf",
       "sourceName": "contracts/PlayerProfile.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -460,8 +460,8 @@
       ]
     },
     "/home/rpi5/knowledge-arena/contracts/DailyQuiz.sol": {
-      "lastModificationDate": 1781080070773,
-      "contentHash": "359cb5eed91645da601db27315d6bc9e",
+      "lastModificationDate": 1781440799203,
+      "contentHash": "d14f8a782c31eaadfb8fb3490c169a57",
       "sourceName": "contracts/DailyQuiz.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -490,9 +490,7 @@
       "imports": [
         "@openzeppelin/contracts/access/Ownable.sol",
         "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol",
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
         "./PlayerProfile.sol",
-        "./RewardPool.sol",
         "./AchievementManager.sol"
       ],
       "versionPragmas": [

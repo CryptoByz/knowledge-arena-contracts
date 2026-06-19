@@ -32,7 +32,6 @@ export interface DailyQuizInterface extends Interface {
       | "dailyMerkleRoot"
       | "dailyScore"
       | "enterQuiz"
-      | "entryFee"
       | "getTodayScore"
       | "hasSubmitted"
       | "isTodayReady"
@@ -40,19 +39,15 @@ export interface DailyQuizInterface extends Interface {
       | "owner"
       | "playerProfile"
       | "renounceOwnership"
-      | "rewardPool"
       | "setDailyMerkleRoot"
-      | "setEntryFee"
       | "submitAnswers"
       | "todayIndex"
       | "totalGamesPlayed"
       | "transferOwnership"
-      | "usdc"
   ): FunctionFragment;
 
   getEvent(
     nameOrSignatureOrTopic:
-      | "EntryFeeUpdated"
       | "MerkleRootSet"
       | "OwnershipTransferred"
       | "QuizCompleted"
@@ -80,7 +75,6 @@ export interface DailyQuizInterface extends Interface {
     values: [AddressLike, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "enterQuiz", values?: undefined): string;
-  encodeFunctionData(functionFragment: "entryFee", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "getTodayScore",
     values: [AddressLike]
@@ -107,16 +101,8 @@ export interface DailyQuizInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "rewardPool",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "setDailyMerkleRoot",
     values: [BytesLike, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setEntryFee",
-    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "submitAnswers",
@@ -134,7 +120,6 @@ export interface DailyQuizInterface extends Interface {
     functionFragment: "transferOwnership",
     values: [AddressLike]
   ): string;
-  encodeFunctionData(functionFragment: "usdc", values?: undefined): string;
 
   decodeFunctionResult(
     functionFragment: "QUESTIONS_PER_DAY",
@@ -151,7 +136,6 @@ export interface DailyQuizInterface extends Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "dailyScore", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "enterQuiz", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "entryFee", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getTodayScore",
     data: BytesLike
@@ -177,13 +161,8 @@ export interface DailyQuizInterface extends Interface {
     functionFragment: "renounceOwnership",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "rewardPool", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setDailyMerkleRoot",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setEntryFee",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -199,19 +178,6 @@ export interface DailyQuizInterface extends Interface {
     functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "usdc", data: BytesLike): Result;
-}
-
-export namespace EntryFeeUpdatedEvent {
-  export type InputTuple = [newFee: BigNumberish];
-  export type OutputTuple = [newFee: bigint];
-  export interface OutputObject {
-    newFee: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
 }
 
 export namespace MerkleRootSetEvent {
@@ -266,16 +232,11 @@ export namespace QuizCompletedEvent {
 }
 
 export namespace QuizEnteredEvent {
-  export type InputTuple = [
-    player: AddressLike,
-    dayIndex: BigNumberish,
-    fee: BigNumberish
-  ];
-  export type OutputTuple = [player: string, dayIndex: bigint, fee: bigint];
+  export type InputTuple = [player: AddressLike, dayIndex: BigNumberish];
+  export type OutputTuple = [player: string, dayIndex: bigint];
   export interface OutputObject {
     player: string;
     dayIndex: bigint;
-    fee: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -342,8 +303,6 @@ export interface DailyQuiz extends BaseContract {
 
   enterQuiz: TypedContractMethod<[], [void], "nonpayable">;
 
-  entryFee: TypedContractMethod<[], [bigint], "view">;
-
   getTodayScore: TypedContractMethod<
     [player: AddressLike],
     [[bigint, boolean]],
@@ -366,16 +325,8 @@ export interface DailyQuiz extends BaseContract {
 
   renounceOwnership: TypedContractMethod<[], [void], "nonpayable">;
 
-  rewardPool: TypedContractMethod<[], [string], "view">;
-
   setDailyMerkleRoot: TypedContractMethod<
     [root: BytesLike, dayIndex: BigNumberish],
-    [void],
-    "nonpayable"
-  >;
-
-  setEntryFee: TypedContractMethod<
-    [newFee: BigNumberish],
     [void],
     "nonpayable"
   >;
@@ -395,8 +346,6 @@ export interface DailyQuiz extends BaseContract {
     [void],
     "nonpayable"
   >;
-
-  usdc: TypedContractMethod<[], [string], "view">;
 
   getFunction<T extends ContractMethod = ContractMethod>(
     key: string | FunctionFragment
@@ -425,9 +374,6 @@ export interface DailyQuiz extends BaseContract {
     nameOrSignature: "enterQuiz"
   ): TypedContractMethod<[], [void], "nonpayable">;
   getFunction(
-    nameOrSignature: "entryFee"
-  ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
     nameOrSignature: "getTodayScore"
   ): TypedContractMethod<[player: AddressLike], [[bigint, boolean]], "view">;
   getFunction(
@@ -453,18 +399,12 @@ export interface DailyQuiz extends BaseContract {
     nameOrSignature: "renounceOwnership"
   ): TypedContractMethod<[], [void], "nonpayable">;
   getFunction(
-    nameOrSignature: "rewardPool"
-  ): TypedContractMethod<[], [string], "view">;
-  getFunction(
     nameOrSignature: "setDailyMerkleRoot"
   ): TypedContractMethod<
     [root: BytesLike, dayIndex: BigNumberish],
     [void],
     "nonpayable"
   >;
-  getFunction(
-    nameOrSignature: "setEntryFee"
-  ): TypedContractMethod<[newFee: BigNumberish], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "submitAnswers"
   ): TypedContractMethod<
@@ -481,17 +421,7 @@ export interface DailyQuiz extends BaseContract {
   getFunction(
     nameOrSignature: "transferOwnership"
   ): TypedContractMethod<[newOwner: AddressLike], [void], "nonpayable">;
-  getFunction(
-    nameOrSignature: "usdc"
-  ): TypedContractMethod<[], [string], "view">;
 
-  getEvent(
-    key: "EntryFeeUpdated"
-  ): TypedContractEvent<
-    EntryFeeUpdatedEvent.InputTuple,
-    EntryFeeUpdatedEvent.OutputTuple,
-    EntryFeeUpdatedEvent.OutputObject
-  >;
   getEvent(
     key: "MerkleRootSet"
   ): TypedContractEvent<
@@ -522,17 +452,6 @@ export interface DailyQuiz extends BaseContract {
   >;
 
   filters: {
-    "EntryFeeUpdated(uint256)": TypedContractEvent<
-      EntryFeeUpdatedEvent.InputTuple,
-      EntryFeeUpdatedEvent.OutputTuple,
-      EntryFeeUpdatedEvent.OutputObject
-    >;
-    EntryFeeUpdated: TypedContractEvent<
-      EntryFeeUpdatedEvent.InputTuple,
-      EntryFeeUpdatedEvent.OutputTuple,
-      EntryFeeUpdatedEvent.OutputObject
-    >;
-
     "MerkleRootSet(uint256,bytes32)": TypedContractEvent<
       MerkleRootSetEvent.InputTuple,
       MerkleRootSetEvent.OutputTuple,
@@ -566,7 +485,7 @@ export interface DailyQuiz extends BaseContract {
       QuizCompletedEvent.OutputObject
     >;
 
-    "QuizEntered(address,uint256,uint256)": TypedContractEvent<
+    "QuizEntered(address,uint256)": TypedContractEvent<
       QuizEnteredEvent.InputTuple,
       QuizEnteredEvent.OutputTuple,
       QuizEnteredEvent.OutputObject

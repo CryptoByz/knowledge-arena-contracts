@@ -33,8 +33,15 @@ contract PlayerProfile is Ownable {
     event StreakUpdated(address indexed player, uint256 streakDays, uint256 boostMultiplier);
     event PeriodReset(uint8 period);
 
+    address public achievementManager;
+
     modifier onlyQuiz() {
         require(msg.sender == quizContract, "Only quiz contract");
+        _;
+    }
+
+    modifier onlyQuizOrManager() {
+        require(msg.sender == quizContract || msg.sender == achievementManager, "Only quiz or manager");
         _;
     }
 
@@ -42,6 +49,10 @@ contract PlayerProfile is Ownable {
 
     function setQuizContract(address _quiz) external onlyOwner {
         quizContract = _quiz;
+    }
+
+    function setAchievementManager(address _manager) external onlyOwner {
+        achievementManager = _manager;
     }
 
     // Quiz contract çağırır - skor + streak güncelle
@@ -152,7 +163,7 @@ contract PlayerProfile is Ownable {
         );
     }
 
-    function setAchievementFlag(address player, uint8 flagIndex) external onlyQuiz {
+    function setAchievementFlag(address player, uint8 flagIndex) external onlyQuizOrManager {
         profiles[player].achievementFlags |= uint32(1 << flagIndex);
     }
 

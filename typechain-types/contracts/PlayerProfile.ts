@@ -28,6 +28,7 @@ export interface PlayerProfileInterface extends Interface {
     nameOrSignature:
       | "DAY"
       | "GRACE_PERIOD"
+      | "achievementManager"
       | "getProfile"
       | "hasAchievement"
       | "monthlyEpoch"
@@ -40,6 +41,7 @@ export interface PlayerProfileInterface extends Interface {
       | "seasonEpoch"
       | "seasonScoreByEpoch"
       | "setAchievementFlag"
+      | "setAchievementManager"
       | "setQuizContract"
       | "streakBoosts"
       | "streakThresholds"
@@ -60,6 +62,10 @@ export interface PlayerProfileInterface extends Interface {
   encodeFunctionData(functionFragment: "DAY", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "GRACE_PERIOD",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "achievementManager",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -108,6 +114,10 @@ export interface PlayerProfileInterface extends Interface {
     values: [AddressLike, BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "setAchievementManager",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
     functionFragment: "setQuizContract",
     values: [AddressLike]
   ): string;
@@ -135,6 +145,10 @@ export interface PlayerProfileInterface extends Interface {
   decodeFunctionResult(functionFragment: "DAY", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "GRACE_PERIOD",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "achievementManager",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getProfile", data: BytesLike): Result;
@@ -174,6 +188,10 @@ export interface PlayerProfileInterface extends Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "setAchievementFlag",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setAchievementManager",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -330,6 +348,8 @@ export interface PlayerProfile extends BaseContract {
 
   GRACE_PERIOD: TypedContractMethod<[], [bigint], "view">;
 
+  achievementManager: TypedContractMethod<[], [string], "view">;
+
   getProfile: TypedContractMethod<
     [player: AddressLike],
     [
@@ -392,6 +412,12 @@ export interface PlayerProfile extends BaseContract {
     "nonpayable"
   >;
 
+  setAchievementManager: TypedContractMethod<
+    [_manager: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
   setQuizContract: TypedContractMethod<
     [_quiz: AddressLike],
     [void],
@@ -426,6 +452,9 @@ export interface PlayerProfile extends BaseContract {
   getFunction(
     nameOrSignature: "GRACE_PERIOD"
   ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "achievementManager"
+  ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "getProfile"
   ): TypedContractMethod<
@@ -496,6 +525,9 @@ export interface PlayerProfile extends BaseContract {
     [void],
     "nonpayable"
   >;
+  getFunction(
+    nameOrSignature: "setAchievementManager"
+  ): TypedContractMethod<[_manager: AddressLike], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "setQuizContract"
   ): TypedContractMethod<[_quiz: AddressLike], [void], "nonpayable">;
