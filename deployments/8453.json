@@ -1,8 +1,8 @@
 {
   "network": "baseMainnet",
   "chainId": "8453",
-  "badgeNFT": "0xcAF20a164E00f614c74520D36a7F78E0c6de8365",
-  "playerProfile": "0xe9ae25F42Fc221E6C0d51c43300179F41713e4c1",
-  "achievementManager": "0x48CdE43521573037d597bfc250Fbc2B24192fb4b",
-  "dailyQuiz": "0xBe97A1F87D166487FD79B1809Ea5890398358F67"
+  "badgeNFT": "0x38751e1e30B075958935143E3A46741C4d9Aa4A0",
+  "playerProfile": "0xd5905F764635d07bA11b80e5d6195fDC09122859",
+  "achievementManager": "0xCe0966A8d3a29c5e5B4812e1aAFcFD3494ee5672",
+  "dailyQuiz": "0x89bf7bbfd6F2C9C03abe3Fd1cbF7526C579FC1E4"
 }
