@@ -11,17 +11,22 @@ async function main() {
 
   const metadataBaseURI = process.env.METADATA_BASE_URI || "https://api.knowledge-arena.xyz/metadata";
 
+  const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+  const delay = async () => { if (network.chainId === 42220n || network.chainId === 8453n) await sleep(3000); };
+
   console.log("1/4 Deploying BadgeNFT...");
   const BadgeNFT = await ethers.getContractFactory("BadgeNFT");
   const badgeNFT = await BadgeNFT.deploy(metadataBaseURI);
   await badgeNFT.waitForDeployment();
   console.log(`    BadgeNFT: ${await badgeNFT.getAddress()}`);
+  await delay();
 
   console.log("2/4 Deploying PlayerProfile...");
   const PlayerProfile = await ethers.getContractFactory("PlayerProfile");
   const playerProfile = await PlayerProfile.deploy();
   await playerProfile.waitForDeployment();
   console.log(`    PlayerProfile: ${await playerProfile.getAddress()}`);
+  await delay();
 
   console.log("3/4 Deploying AchievementManager...");
   const AchievementManager = await ethers.getContractFactory("AchievementManager");
@@ -31,6 +36,7 @@ async function main() {
   );
   await achievementManager.waitForDeployment();
   console.log(`    AchievementManager: ${await achievementManager.getAddress()}`);
+  await delay();
 
   console.log("4/4 Deploying DailyQuiz...");
   const DailyQuiz = await ethers.getContractFactory("DailyQuiz");
@@ -40,18 +46,22 @@ async function main() {
   );
   await dailyQuiz.waitForDeployment();
   console.log(`    DailyQuiz: ${await dailyQuiz.getAddress()}`);
+  await delay();
 
   console.log("\nSetting up permissions...");
   const quizAddr = await dailyQuiz.getAddress();
 
   await (await playerProfile.setQuizContract(quizAddr)).wait();
   console.log("    PlayerProfile: quiz contract set");
+  await delay();
 
   await (await playerProfile.setAchievementManager(await achievementManager.getAddress())).wait();
   console.log("    PlayerProfile: AchievementManager set");
+  await delay();
 
   await (await achievementManager.setQuizContract(quizAddr)).wait();
   console.log("    AchievementManager: quiz contract set");
+  await delay();
 
   await (await badgeNFT.setAuthorized(await achievementManager.getAddress(), true)).wait();
   console.log("    BadgeNFT: AchievementManager authorized");

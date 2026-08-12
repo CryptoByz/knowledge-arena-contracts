@@ -1,8 +1,8 @@
 {
   "network": "arcTestnet",
   "chainId": "5042002",
-  "badgeNFT": "0x74d00bdE11e2D8B91601C58E7f1447CF52B6f68a",
-  "playerProfile": "0xc8Ba5dab61Ed592AA591a56F3880cDC892d78767",
-  "achievementManager": "0x413cE89ac030b44a261f97Fdcb3D4D49a92322E7",
-  "dailyQuiz": "0xC5deEE0616537C02C9c2a37B7ad09dab205988Cb"
+  "badgeNFT": "0x606122E2D9C0511B9314A0e47e47B7ecF3F1e34F",
+  "playerProfile": "0xe34A9CEE2435abC97205882904969BCB29f1266e",
+  "achievementManager": "0x1492Ac21952BfB9480B22a1690AF4d7a49Ac4643",
+  "dailyQuiz": "0xBfcE8a742Fc40550A416ea74845e54Ea4B377861"
 }

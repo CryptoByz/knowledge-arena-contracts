@@ -3,7 +3,7 @@ import "@nomicfoundation/hardhat-toolbox";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-const PRIVATE_KEY = process.env.ADMIN_PRIVATE_KEY || "0x" + "0".repeat(64);
+const accounts = process.env.ADMIN_PRIVATE_KEY ? [process.env.ADMIN_PRIVATE_KEY] : [];
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -15,25 +15,26 @@ const config: HardhatUserConfig = {
   networks: {
     arcTestnet: {
       url: process.env.ARC_RPC_URL || "",
-      accounts: [PRIVATE_KEY],
+      accounts: accounts,
       chainId: 5042002,
     },
     baseMainnet: {
      url: process.env.BASE_MAINNET_RPC_URL || "https://mainnet.base.org",
-     accounts: [PRIVATE_KEY],
+     accounts: accounts,
      chainId: 8453,
     },
     baseSepolia: {
       url: process.env.BASE_SEPOLIA_RPC_URL || "https://sepolia.base.org",
-      accounts: [PRIVATE_KEY],
+      accounts: accounts,
       chainId: 84532,
     },
     celo: {
       url: process.env.CELO_RPC_URL || "https://forno.celo.org",
-      accounts: [PRIVATE_KEY],
+      accounts: accounts,
       chainId: 42220,
     }
   }
 };
+
 
 export default config;
